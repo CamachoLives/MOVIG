@@ -65,4 +65,18 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/service-details4/service-details4').then((m) => m.ServiceDetails4),
   },
+  {
+    path: 'portfolio',
+    title: 'Portfolio - Movig',
+    data: { bodyClass: 'portfolio-page' },
+    loadComponent: () =>
+      import('./pages/portfolio/portfolio').then((m) => m.Portfolio),
+  },
+  {
+    path: 'portfolio-details',
+    title: 'Portfolio Details - Movig',
+    data: { bodyClass: 'portfolio-details-page' },
+    loadComponent: () =>
+      import('./pages/portfolio-details/portfolio-details').then((m) => m.PortfolioDetails),
+  },
 ];
