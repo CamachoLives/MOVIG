@@ -92,6 +92,7 @@ export class TemplateRuntime {
     this.initSwipers();
     this.initSkillsAnimation();
     this.initIsotope();
+    this.bindEmailForms();
   }
 
   /** Libera las instancias creadas por la pagina anterior. */
@@ -217,6 +218,66 @@ export class TemplateRuntime {
         }),
       );
     });
+  }
+
+  /**
+   * Port de assets/vendor/php-email-form/validate.js. El vendor engancha los
+   * formularios una sola vez al cargar la pagina, asi que no alcanza a los que
+   * Angular pinta despues; sin esto el formulario haria un POST clasico y se
+   * saldria del sitio.
+   */
+  private bindEmailForms(): void {
+    this.document.querySelectorAll<HTMLFormElement>('.php-email-form').forEach((form) => {
+      if (form.dataset['bound'] === 'true') {
+        return;
+      }
+      form.dataset['bound'] = 'true';
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        void this.submitEmailForm(form);
+      });
+    });
+  }
+
+  private async submitEmailForm(form: HTMLFormElement): Promise<void> {
+    const action = form.getAttribute('action');
+    if (!action) {
+      this.displayFormError(form, 'The form action property is not set!');
+      return;
+    }
+
+    form.querySelector('.loading')?.classList.add('d-block');
+    form.querySelector('.error-message')?.classList.remove('d-block');
+    form.querySelector('.sent-message')?.classList.remove('d-block');
+
+    try {
+      const response = await fetch(action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'X-Requested-With': 'XMLHttpRequest' },
+      });
+      if (!response.ok) {
+        throw new Error(response.status + ' ' + response.statusText + ' ' + response.url);
+      }
+      const data = (await response.text()).trim();
+      form.querySelector('.loading')?.classList.remove('d-block');
+      if (data !== 'OK') {
+        throw new Error(data || 'Form submission failed and no error message returned from: ' + action);
+      }
+      form.querySelector('.sent-message')?.classList.add('d-block');
+      form.reset();
+    } catch (error) {
+      this.displayFormError(form, error instanceof Error ? error.message : String(error));
+    }
+  }
+
+  private displayFormError(form: HTMLFormElement, message: string): void {
+    form.querySelector('.loading')?.classList.remove('d-block');
+    const errorMessage = form.querySelector('.error-message');
+    if (errorMessage) {
+      errorMessage.textContent = message;
+      errorMessage.classList.add('d-block');
+    }
   }
 
   private initIsotope(): void {
