@@ -1,0 +1,110 @@
+<!-- Boton flotante -->
+<button
+  type="button"
+  class="cart-fab d-flex align-items-center justify-content-center"
+  [attr.aria-label]="
+    cart.count() === 0
+      ? 'Abrir la cotización (vacía)'
+      : 'Abrir la cotización (' + cart.count() + ' unidades)'
+  "
+  [attr.aria-expanded]="isOpen()"
+  (click)="toggle()"
+>
+  <i class="bi bi-cart3"></i>
+  @if (cart.count() > 0) {
+    <span class="cart-fab-badge">{{ cart.count() }}</span>
+  }
+</button>
+
+<!-- Fondo oscuro -->
+<div class="cart-backdrop" [class.active]="isOpen()" (click)="close()"></div>
+
+<!-- Panel lateral -->
+<aside
+  class="cart-drawer"
+  [class.active]="isOpen()"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="cart-drawer-title"
+  [attr.aria-hidden]="!isOpen()"
+  [attr.inert]="isOpen() ? null : ''"
+>
+  <header class="cart-drawer-header">
+    <h4 id="cart-drawer-title">Tu cotización</h4>
+    <button type="button" class="cart-drawer-close" aria-label="Cerrar" (click)="close()">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </header>
+
+  <div class="cart-drawer-body">
+    @if (cart.isEmpty()) {
+      <div class="cart-empty">
+        <i class="bi bi-cart3"></i>
+        <p>Todavía no has agregado nada.</p>
+        <p class="cart-empty-hint">
+          Agrega cámaras desde el portafolio o servicios desde la página de servicios y te armamos
+          la cotización por WhatsApp.
+        </p>
+      </div>
+    } @else {
+      @for (group of cart.groups(); track group.category) {
+        <h5 class="cart-group-title">{{ group.label }}</h5>
+        <ul class="cart-lines">
+          @for (line of group.lines; track line.id) {
+            <li class="cart-line">
+              @if (line.image) {
+                <img [src]="line.image" [alt]="line.name" class="cart-line-img" />
+              }
+              <div class="cart-line-body">
+                <span class="cart-line-name">{{ line.name }}</span>
+                <div class="cart-line-actions">
+                  <button
+                    type="button"
+                    [attr.aria-label]="'Quitar una unidad de ' + line.name"
+                    (click)="cart.decrement(line.id)"
+                  >
+                    <i class="bi bi-dash"></i>
+                  </button>
+                  <span class="cart-line-qty" aria-live="polite">{{ line.quantity }}</span>
+                  <button
+                    type="button"
+                    [attr.aria-label]="'Agregar una unidad de ' + line.name"
+                    (click)="cart.increment(line.id)"
+                  >
+                    <i class="bi bi-plus"></i>
+                  </button>
+                </div>
+              </div>
+              <button
+                type="button"
+                class="cart-line-remove"
+                [attr.aria-label]="'Quitar ' + line.name + ' de la cotización'"
+                (click)="cart.remove(line.id)"
+              >
+                <i class="bi bi-trash3"></i>
+              </button>
+            </li>
+          }
+        </ul>
+      }
+    }
+  </div>
+
+  <footer class="cart-drawer-footer">
+    <p class="cart-note">
+      Los precios se confirman por WhatsApp según el modelo y la instalación que necesites.
+    </p>
+    <button
+      type="button"
+      class="btn-cart-whatsapp"
+      [disabled]="cart.isEmpty()"
+      (click)="sendToWhatsapp()"
+    >
+      <i class="bi bi-whatsapp"></i>
+      Pedir cotización por WhatsApp
+    </button>
+    @if (!cart.isEmpty()) {
+      <button type="button" class="btn-cart-clear" (click)="cart.clear()">Vaciar</button>
+    }
+  </footer>
+</aside>

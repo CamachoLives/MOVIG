@@ -1,0 +1,30 @@
+@if (variant() === 'icon') {
+  <button
+    type="button"
+    class="cart-link"
+    [class.in-cart]="quantity() > 0"
+    [title]="label()"
+    [attr.aria-label]="label()"
+    (click)="add($event)"
+  >
+    <i class="bi" [class.bi-cart-plus]="quantity() === 0" [class.bi-cart-check]="quantity() > 0"></i>
+    @if (quantity() > 0) {
+      <span class="cart-link-count">{{ quantity() }}</span>
+    }
+  </button>
+} @else {
+  <button
+    type="button"
+    class="btn-add-to-cart"
+    [class.in-cart]="quantity() > 0"
+    [attr.aria-label]="label()"
+    (click)="add($event)"
+  >
+    <i class="bi" [class.bi-cart-plus]="quantity() === 0" [class.bi-cart-check]="quantity() > 0"></i>
+    @if (quantity() > 0) {
+      <span>En la cotización ({{ quantity() }})</span>
+    } @else {
+      <span>Agregar a la cotización</span>
+    }
+  </button>
+}

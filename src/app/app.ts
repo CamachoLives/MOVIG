@@ -13,6 +13,7 @@ import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/ro
 import { filter } from 'rxjs';
 
 import { TemplateRuntime } from './core/template-runtime';
+import { CartPanel } from './layout/cart-panel/cart-panel';
 import { Footer } from './layout/footer/footer';
 import { Header } from './layout/header/header';
 
@@ -27,7 +28,7 @@ import { Header } from './layout/header/header';
  */
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Header, Footer],
+  imports: [RouterOutlet, Header, Footer, CartPanel],
   templateUrl: './app.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
