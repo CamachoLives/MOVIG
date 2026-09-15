@@ -86,4 +86,36 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/contact/contact').then((m) => m.Contact),
   },
+  {
+    path: 'team',
+    title: 'Equipo - Movig',
+    data: { bodyClass: 'team-page' },
+    loadComponent: () =>
+      import('./pages/team/team').then((m) => m.Team),
+  },
+  {
+    path: 'blog',
+    title: 'Blog - Movig',
+    data: { bodyClass: 'blog-page' },
+    loadComponent: () =>
+      import('./pages/blog/blog').then((m) => m.Blog),
+  },
+  {
+    path: 'blog-details',
+    title: 'Blog - Movig',
+    data: { bodyClass: 'blog-details-page' },
+    loadComponent: () =>
+      import('./pages/blog-details/blog-details').then((m) => m.BlogDetails),
+  },
+  {
+    path: 'starter-page',
+    title: 'Movig',
+    data: { bodyClass: 'starter-page-page' },
+    loadComponent: () =>
+      import('./pages/starter-page/starter-page').then((m) => m.StarterPage),
+  },
+  {
+    path: '**',
+    redirectTo: '',
+  },
 ];
