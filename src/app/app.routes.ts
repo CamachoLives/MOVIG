@@ -13,6 +13,14 @@ export const routes: Routes = [
     path: '',
     title: 'MOVIG',
     data: { bodyClass: 'index-page' },
-    loadComponent: () => import('./pages/home/home').then((m) => m.Home),
+    loadComponent: () =>
+      import('./pages/home/home').then((m) => m.Home),
+  },
+  {
+    path: 'about',
+    title: 'Sobre Nosotros - MOVIG',
+    data: { bodyClass: 'about-page' },
+    loadComponent: () =>
+      import('./pages/about/about').then((m) => m.About),
   },
 ];
