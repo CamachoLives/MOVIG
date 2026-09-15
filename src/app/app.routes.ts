@@ -30,4 +30,39 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/services/services').then((m) => m.Services),
   },
+  {
+    path: 'service-details',
+    title: 'Nuestros Servicios - Movig',
+    data: { bodyClass: 'service-details-page' },
+    loadComponent: () =>
+      import('./pages/service-details/service-details').then((m) => m.ServiceDetails),
+  },
+  {
+    path: 'service-details1',
+    title: 'Nuestros Servicios - Movig',
+    data: { bodyClass: 'service-details-page' },
+    loadComponent: () =>
+      import('./pages/service-details1/service-details1').then((m) => m.ServiceDetails1),
+  },
+  {
+    path: 'service-details2',
+    title: 'Nuestros Servicios - Movig',
+    data: { bodyClass: 'service-details-page' },
+    loadComponent: () =>
+      import('./pages/service-details2/service-details2').then((m) => m.ServiceDetails2),
+  },
+  {
+    path: 'service-details3',
+    title: 'Nuestros Servicios - Movig',
+    data: { bodyClass: 'service-details-page' },
+    loadComponent: () =>
+      import('./pages/service-details3/service-details3').then((m) => m.ServiceDetails3),
+  },
+  {
+    path: 'service-details4',
+    title: 'Nuestros Servicios - Movig',
+    data: { bodyClass: 'service-details-page' },
+    loadComponent: () =>
+      import('./pages/service-details4/service-details4').then((m) => m.ServiceDetails4),
+  },
 ];
