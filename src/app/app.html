@@ -1,1 +1,16 @@
-<router-outlet />
+<app-header />
+
+<main class="main">
+  <router-outlet />
+</main>
+
+<app-footer />
+
+<!-- Scroll Top -->
+<a
+  href="#"
+  id="scroll-top"
+  class="scroll-top d-flex align-items-center justify-content-center"
+  (click)="scrollToTop($event)"
+  ><i class="bi bi-arrow-up-short"></i
+></a>

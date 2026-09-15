@@ -1,0 +1,10 @@
+/*
+ * Las paginas del template original colgaban sus <section> directamente de
+ * <main class="main">. Al pasarlas a componentes, Angular agrega un elemento
+ * anfitrion (<app-home>, <app-about>, ...) que no existia en el HTML.
+ * Con display: contents ese elemento desaparece del arbol de layout y la
+ * estructura de cajas queda exactamente igual que en el sitio original.
+ */
+:host {
+  display: contents;
+}
