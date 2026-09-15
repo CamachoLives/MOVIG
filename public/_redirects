@@ -1,0 +1,24 @@
+# Cloudflare Pages - reglas de enrutamiento
+#
+# 1) Las URLs del sitio estatico anterior (.html) se redirigen de forma
+#    permanente a la ruta equivalente de la SPA, para no perder enlaces
+#    compartidos ni lo que ya este indexado en buscadores.
+/about.html              /about              301
+/services.html           /services           301
+/service-details.html    /service-details    301
+/service-details1.html   /service-details1   301
+/service-details2.html   /service-details2   301
+/service-details3.html   /service-details3   301
+/service-details4.html   /service-details4   301
+/portfolio.html          /portfolio          301
+/portfolio-details.html  /portfolio-details  301
+/contact.html            /contact            301
+/team.html               /team               301
+/blog.html               /blog               301
+/blog-details.html       /blog-details       301
+/starter-page.html       /starter-page       301
+
+# 2) Cualquier otra ruta la resuelve el router de Angular. Los archivos que si
+#    existen (assets, JS, CSS) tienen prioridad sobre esta regla, asi que solo
+#    aplica a las URLs de navegacion.
+/*                       /index.html         200
