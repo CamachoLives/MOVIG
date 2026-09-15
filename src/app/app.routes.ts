@@ -23,4 +23,11 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/about/about').then((m) => m.About),
   },
+  {
+    path: 'services',
+    title: 'Servicios - Movig',
+    data: { bodyClass: 'services-page' },
+    loadComponent: () =>
+      import('./pages/services/services').then((m) => m.Services),
+  },
 ];
