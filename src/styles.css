@@ -1,0 +1,10 @@
+/*
+ * Los estilos del sitio viven en assets/css/main.css y en los vendors
+ * (Bootstrap, Bootstrap Icons, AOS, GLightbox, Swiper), enlazados desde
+ * src/index.html tal cual estaban en el sitio original. Se mantienen como
+ * archivos estaticos para que las rutas relativas dentro del CSS
+ * (por ejemplo url("../img/camara.jpg") y las fuentes de Bootstrap Icons)
+ * sigan resolviendo exactamente igual.
+ *
+ * Este archivo queda reservado para ajustes globales propios de la app.
+ */
