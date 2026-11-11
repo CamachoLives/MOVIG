@@ -29,6 +29,21 @@ Lo que si cambio:
 El sitio estatico original queda archivado en [`legacy/`](legacy/) como
 referencia.
 
+## Carrito de cotizacion
+
+Las camaras del portafolio y los servicios se pueden ir agregando a un carrito.
+Como el sitio no maneja precios, el carrito no cobra nada: junta la seleccion y
+arma un mensaje de WhatsApp con el detalle, agrupado en camaras y servicios.
+
+- El boton flotante de abajo a la derecha abre el panel con lo seleccionado.
+- El contenido se guarda en `localStorage`, asi que sobrevive a la navegacion
+  entre paginas y a la recarga.
+- El numero de destino es el mismo del boton "Hablar por WhatsApp" del pie.
+
+El item se define desde la plantilla de cada pagina, no desde un catalogo
+aparte, para que el texto que ve el visitante y el que viaja en el mensaje sean
+el mismo. Ver [`src/app/core/cart.ts`](src/app/core/cart.ts).
+
 ## Estructura
 
 ```
@@ -37,9 +52,10 @@ src/
   app/
     app.ts / app.html   armazon: cabecera, contenido, pie, volver arriba
     app.routes.ts       una ruta por cada pagina del sitio original
-    core/               port de main.js y del validador del formulario
+    core/               port de main.js, validador del formulario y carrito
     layout/             cabecera y pie compartidos
     pages/              una carpeta por pagina
+    shared/             componentes reutilizables (boton de agregar al carrito)
 assets/                 CSS, JS, imagenes y vendors del template (sin tocar)
 public/                 _redirects y _headers para Cloudflare Pages
 legacy/                 el sitio estatico anterior, tal como estaba
